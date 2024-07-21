@@ -1,4 +1,5 @@
 import { product } from "../lib/types"
+import { AddCart } from "./AddCart"
 
 type ProductProps = {
     product: product
@@ -14,7 +15,7 @@ export function Product({ product }: ProductProps) {
                     <p className="text-xs text-gray-700">Pix: R$ {product.preco_descontado}</p>
                 </div>
             </div>
-            <button className="mt-5 bg-green-700 text-gray-200 mx-2 mb-1 p-1 rounded-md">Adicionar ao carrinho</button>
+            <AddCart product={product}/>
         </div>
     )
 }
