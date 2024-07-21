@@ -1,6 +1,7 @@
 'use client'
 
 import { useCartStore } from "../lib/store"
+import { AddVenda } from "./AddVenda";
 
 export function CartDrawer() {
     const useStore = useCartStore();
@@ -35,6 +36,7 @@ export function CartDrawer() {
                         </div>
                     ))
                 }
+                <AddVenda />
             </div>
         </div>
     )

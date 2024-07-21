@@ -9,7 +9,7 @@ export function AddCart({product}: { product: product }) {
     return (
         <button 
             onClick={() => addProduct(product)} 
-            className="mt-5 bg-green-700 text-gray-200 mx-1 mb-1 p-1 rounded-md"
+            className="mt-5 bg-teal-600 text-gray-200 mx-1 mb-1 p-1 rounded-md"
         >
             Adicionar ao carrinho
         </button>

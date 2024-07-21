@@ -24,6 +24,7 @@ model Produto {
 model Venda {
   id Int @id @default(autoincrement())
   status Int
+  total Float
 
   items ItemVenda[]
 
@@ -35,10 +36,10 @@ model ItemVenda {
   venda_id Int
   produto_id String
   quantidade Int
+  preco Float
 
   venda      Venda    @relation(fields: [venda_id], references: [id])
   produto    Produto  @relation(fields: [produto_id], references: [SKU])
 
   @@map("Itens_Venda")
 }
-

@@ -1,5 +1,4 @@
 import { Product } from "./components/Product";
-import { SKUs } from "./lib/produtosCaseSB";
 import { product } from "./lib/types";
 
 async function getData() {
