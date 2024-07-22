@@ -1,6 +1,6 @@
 import { useCartStore } from "../lib/store"
 import { SubmitHandler, useForm } from "react-hook-form";
-import { vendaData } from "../lib/types"
+import { vendaData, forma_pagamento, prazo_adicional } from "../lib/types"
 
 export function AddVenda() {
     const useStore = useCartStore();
@@ -19,7 +19,10 @@ export function AddVenda() {
             },
             body: JSON.stringify({ 
                 itens: useStore.cart,
-                ...data
+                ...data,
+                forma_pagamento: Number(data.forma_pagamento),
+                prazo_adicional: Number(data.prazo_adicional)
+
             })
         })
         .then(response => {
@@ -40,9 +43,9 @@ export function AddVenda() {
             <div className="mb-4">
                 <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="forma_pagamento">Forma de Pagamento</label>
                 <select {...register('forma_pagamento')} className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans">
-                    <option value={1}>Cartão de Crédito</option>
-                    <option value={2}>Pix</option>
-                    <option value={3}>Boleto</option>
+                    <option value={forma_pagamento.cartao_credito}>Cartão de Crédito</option>
+                    <option value={forma_pagamento.pix}>Pix</option>
+                    <option value={forma_pagamento.boleto}>Boleto</option>
                 </select>
             </div>
 
@@ -79,9 +82,9 @@ export function AddVenda() {
             <div className="mb-4">
                 <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="prazo_adicional">Adicional de Prazo</label>
                 <select {...register('prazo_adicional')} className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans">
-                    <option value={1}>Padrão</option>
-                    <option value={2}>Turbo</option>
-                    <option value={3}>Super Turbo</option>
+                    <option value={prazo_adicional.padrao}>Padrão</option>
+                    <option value={prazo_adicional.turbo}>Turbo</option>
+                    <option value={prazo_adicional.super_turbo}>Super Turbo</option>
                 </select>
             </div>
 
