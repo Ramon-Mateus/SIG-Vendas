@@ -24,9 +24,21 @@ export function AddVenda() {
         <div>
             {
                 useStore.cart.length > 0 ? (
-                    <button onClick={addVenda} className="bg-teal-600 text-gray-300 w-full text-center py-3 rounded-md mt-5">Adicionar Venda</button>
+                    <button onClick={() => {
+                        addVenda;
+                        useStore.cleanCart();
+                    }} 
+                    className="bg-teal-600 text-gray-300 w-full text-center py-3 rounded-md mt-5"
+                    >
+                        Adicionar Venda
+                    </button>
                 ) : (
-                    <button disabled className="bg-teal-700 text-gray-300 w-full text-center py-3 rounded-md mt-5">Adicionar Venda</button>
+                    <button 
+                        disabled 
+                        className="bg-teal-700 text-gray-300 w-full text-center py-3 rounded-md mt-5"
+                    >
+                        Adicionar Venda
+                    </button>
                 )
             }
         </div>

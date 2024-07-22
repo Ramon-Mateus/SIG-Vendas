@@ -6,6 +6,7 @@ type CartState = {
     cart: product[];
     addProduct: (product: product) => void;
     removeProduct: (product: product) => void;
+    cleanCart: () => void;
     isOpen: boolean;
     toggleCart: () => void;
 }
@@ -44,6 +45,10 @@ export const useCartStore = create<CartState>()(
                     const filteredCart = state.cart.filter((p) => p.SKU !== item.SKU);
                     return { cart: filteredCart }
                 }
+            }),
+        cleanCart: () =>
+            set(() => {
+                return { cart: [] }
             }),
         isOpen: false,
         toggleCart: () => set((state) => ({isOpen: !state.isOpen }))
