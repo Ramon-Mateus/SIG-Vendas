@@ -17,7 +17,6 @@ export function AddVenda() {
             }
             return response.json();
         })
-
     }
     
     return (

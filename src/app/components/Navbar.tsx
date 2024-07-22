@@ -8,6 +8,10 @@ export function NavBar() {
                     href="/" 
                     className="font-semibold text-md items-center"
                 >SIG - Vendas</Link>
+                <div>
+                    <Link href='../' className="px-3">Produtos</Link>
+                    <Link href='../vendas' className="pr-3">Vendas</Link>
+                </div>
                 <Cart/>
             </nav>
     )

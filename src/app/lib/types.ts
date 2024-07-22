@@ -7,13 +7,19 @@ export type product = {
 }
 
 export enum prazo_adicional {
-    padrao = 1,
-    turbo = 2,
-    super_turbo = 3
+    padrao = 0,
+    turbo = 10,
+    super_turbo = 20
 }
 
 export enum status_venda {
     aceita = 1,
-    recusada = 2,
-    analise = 3
+    analise = 2,
+    recusada = 3
+}
+
+export enum forma_pagamento {
+    cartao_credito = 1,
+    pix = 2,
+    boleto = 3
 }
