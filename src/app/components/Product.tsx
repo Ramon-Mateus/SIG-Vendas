@@ -11,8 +11,8 @@ export function Product({ product }: ProductProps) {
             <div className="flex justify-between">
                 <p>{product.SKU}</p>
                 <div className="flex flex-col items-end">
-                    <p>R$ {product.preco_cheio}</p>
-                    <p className="text-xs text-gray-700">Pix: R$ {product.preco_descontado}</p>
+                    <p>R$ {product.preco_cheio.toFixed(2)}</p>
+                    <p className="text-xs text-gray-700">Pix: R$ {product.preco_descontado.toFixed(2)}</p>
                 </div>
             </div>
             <AddCart product={product}/>

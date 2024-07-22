@@ -14,6 +14,17 @@ export type vendaData = {
     endereco: string;
 }
 
+export type venda = {
+    id: number
+    status: number
+    total: number
+    endereco: string
+    frete: number
+    desconto: number
+    prazo_adicional: number
+    forma_pagamento: number
+}
+
 export enum prazo_adicional {
     padrao = 0,
     turbo = 10,

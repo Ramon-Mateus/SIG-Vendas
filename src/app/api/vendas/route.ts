@@ -4,7 +4,11 @@ import { product, status_venda } from "@/app/lib/types";
 import { forma_pagamento } from "../../lib/types"
 
 export async function GET() {
-    const vendas = await prisma.venda.findMany();
+    const vendas = await prisma.venda.findMany({
+        include: {
+            items: true
+        }
+    });
     return NextResponse.json(vendas);
 }
 
@@ -31,7 +35,7 @@ export async function POST(request: Request) {
 
     const venda = await prisma.venda.create({
         data: {
-            status: status_venda.aceita,
+            status: status_venda.analise,
             total: totalVenda(itens, frete, desconto, forma_pagamento, prazo_adicional),
             endereco: endereco,
             frete: frete,

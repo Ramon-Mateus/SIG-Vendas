@@ -1,8 +1,10 @@
 import { useCartStore } from "../lib/store"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { vendaData, forma_pagamento, prazo_adicional } from "../lib/types"
+import { useRouter } from 'next/navigation';
 
 export function AddVenda() {
+    const router = useRouter();
     const useStore = useCartStore();
     const { register, handleSubmit, reset } = useForm<vendaData>({
         defaultValues: {
@@ -34,6 +36,8 @@ export function AddVenda() {
         .then(() => {
             useStore.cleanCart();
             reset();
+            router.replace('/vendas');
+            useStore.toggleCart();
         })
     };
     
