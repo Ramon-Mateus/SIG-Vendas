@@ -6,6 +6,14 @@ export type product = {
     quantity?: number
 }
 
+export type vendaData = {
+    frete: number;
+    prazo_adicional: number;
+    desconto: number;
+    forma_pagamento: string;
+    endereco: string;
+}
+
 export enum prazo_adicional {
     padrao = 0,
     turbo = 10,
