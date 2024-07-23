@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
@@ -17,6 +19,8 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
