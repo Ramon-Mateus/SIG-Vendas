@@ -8,6 +8,9 @@ export function middleware(request: NextRequest) {
     const signInURL = new URL('/login', request.url)
     
     if(!token) {
+        if (request.nextUrl.pathname.startsWith('/api')) {
+            return NextResponse.json({ error: "Permission not alowed" }, { status: 401 });
+        }
         return NextResponse.redirect(signInURL);
     }
 
@@ -21,5 +24,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/', '/vendas', '/admin'],
+    matcher: ['/', '/vendas', '/admin', '/api/auth/user', '/api/products/:path*', '/api/vendas/:path*'],
 };
