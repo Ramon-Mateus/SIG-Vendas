@@ -3,11 +3,8 @@
 import Link from "next/link";
 import { Cart } from "./Cart";
 import Cookies from "js-cookie";
-import  { useRouter } from 'next/navigation'
 
 export function NavBar() {
-    const router = useRouter();
-
     function hangleLogout() {
         Cookies.remove('auth_token', { sameSite: 'None', secure: true });
         Cookies.remove('user_role', { sameSite: 'None', secure: true });
