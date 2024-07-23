@@ -15,7 +15,7 @@ export default async function Home() {
   const products = await getData();
 
   return (
-    <div className="flex gap-4 flex-wrap mx-auto max-w-7xl">
+    <div className="flex gap-4 flex-wrap mx-auto max-w-7xl mb-5">
       {
         products.map((product: product, index: string) => (
           <Product key={index} product={product} />

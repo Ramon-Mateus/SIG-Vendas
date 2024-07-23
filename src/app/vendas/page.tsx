@@ -18,7 +18,7 @@ export default function Vendas() {
     }, []);
 
     return (
-        <div className="flex gap-4 flex-wrap mx-auto max-w-7xl">
+        <div className="flex gap-4 flex-wrap mx-auto max-w-7xl mb-5">
             {
                 vendas.map((venda: venda, index: number) => (
                     <Venda key={index} venda={venda} />

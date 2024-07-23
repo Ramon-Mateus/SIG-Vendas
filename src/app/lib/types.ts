@@ -15,14 +15,32 @@ export type vendaData = {
 }
 
 export type venda = {
-    id: number
-    status: number
-    total: number
-    endereco: string
-    frete: number
-    desconto: number
-    prazo_adicional: number
-    forma_pagamento: number
+    id: number;
+    status: number;
+    total: number;
+    endereco: string;
+    frete: number;
+    desconto: number;
+    prazo_adicional: number;
+    forma_pagamento: number;
+}
+
+export type loginType = {
+    email: string;
+    password: string
+}
+
+export type loginResponse = {
+    user: {
+        id: number,
+        email: string,
+        role: string
+    };
+    token: string;
+}
+
+export type loginErrorResponse = {
+    error: string;
 }
 
 export enum prazo_adicional {
