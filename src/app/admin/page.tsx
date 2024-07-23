@@ -19,7 +19,7 @@ export default function Admin() {
   }, []);
 
   return (
-    <div className="flex gap-4 flex-wrap mx-auto max-w-7xl text-slate-300">
+    <div className="flex gap-4 flex-wrap mx-auto max-w-7xl text-slate-300 mb-5">
       {
         vendas.length === 0 ? (
           <p className="text-xl text-slate-300">Nenhuma venda em análise</p>
