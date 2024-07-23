@@ -1,22 +1,27 @@
+import { NextRequest, NextResponse } from "next/server";
+
 const SECRET_KEY = 'Chave secreta';
 
-export function middleware() { // não funciona
-    // const authorization = request.headers.get("Authorization");
+export function middleware(request: NextRequest) {
+    const token = request.cookies.get('auth_token')?.value;
+    const role = request.cookies.get('user_role')?.value;
+    
+    const homeURL = new URL('/', request.url)
+    const signInURL = new URL('/login', request.url)
+    
+    if(!token) {
+        return NextResponse.redirect(signInURL);
+    }
 
-    // if(!authorization) {
-    // return NextResponse.redirect(new URL('/login', request.url))
-    // }
-
-    // const [, token] = authorization.split(" ")
-
-    // try {
-    //     const decoded = jwt.verify(token, SECRET_KEY);
-
-    // } catch (error) {
-    //     return NextResponse.json({ erro: "error" })
-    // }
+    if (request.nextUrl.pathname === '/admin') {
+        if (role === 'gerente') {
+            return NextResponse.next();
+        } else {
+            return NextResponse.redirect(homeURL);
+        }
+    }
 }
 
 export const config = {
-    // matcher: ['/vendas'],
+    matcher: ['/', '/vendas', '/admin'],
 };

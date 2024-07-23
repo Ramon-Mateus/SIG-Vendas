@@ -3,6 +3,18 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { login } from "../lib/types"
 import { useRouter } from 'next/navigation';
+import Cookies from "js-cookie";
+import { JwtPayload } from "jsonwebtoken";
+import { jwtDecode } from 'jwt-decode';
+
+type LoginResponse = {
+    user: {
+        id: number,
+        email: string,
+        role: string
+    };
+    token: string;
+}
 
 export default function login() {
     const router = useRouter();
@@ -14,9 +26,7 @@ export default function login() {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ 
-                ...data
-            })
+            body: JSON.stringify(data)
         })
         .then(response => {
             if (!response.ok) {
@@ -24,9 +34,17 @@ export default function login() {
             }
             return response.json();
         })
-        .then(() => {
-            reset();
-            router.replace('/');
+        .then((data: LoginResponse) => {
+            const decodedToken: JwtPayload = jwtDecode(data.token);
+            const userRole = decodedToken.role;
+
+            Cookies.set('auth_token', data.token, { sameSite: 'None', secure: true });
+            Cookies.set('user_role', userRole, { sameSite: 'None', secure: true });
+            
+            setTimeout(() => {
+                reset();
+                window.location.href = '/';
+            }, 200);
         })
     };
     

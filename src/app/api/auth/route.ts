@@ -25,9 +25,10 @@ export async function POST(request: Request, res: NextApiResponse) {
         return NextResponse.json({ error: "password invalid!" });
     }
 
-    const token = sign({id: user.id}, SECRET_KEY, { expiresIn: '1d' });
-
+    
     const {id, role} = user;
+
+    const token = sign({ id, role }, SECRET_KEY, { expiresIn: '1d' });
 
     return NextResponse.json({ user: { id, email, role }, token });
 }
