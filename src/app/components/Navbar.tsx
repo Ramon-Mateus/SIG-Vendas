@@ -13,8 +13,6 @@ export function NavBar() {
         Cookies.remove('user_role', { sameSite: 'None', secure: true });
 
         window.location.reload();
-
-        router.push('/');
     }
 
     return (

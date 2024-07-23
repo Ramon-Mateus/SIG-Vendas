@@ -25,9 +25,22 @@ export type venda = {
     forma_pagamento: number;
 }
 
-export type login = {
+export type loginType = {
     email: string;
     password: string
+}
+
+export type loginResponse = {
+    user: {
+        id: number,
+        email: string,
+        role: string
+    };
+    token: string;
+}
+
+export type loginErrorResponse = {
+    error: string;
 }
 
 export enum prazo_adicional {

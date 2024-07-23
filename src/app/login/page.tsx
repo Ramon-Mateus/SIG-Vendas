@@ -1,26 +1,15 @@
 'use client'
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { login } from "../lib/types"
-import { useRouter } from 'next/navigation';
+import { loginErrorResponse, loginResponse, loginType } from "../lib/types"
 import Cookies from "js-cookie";
 import { JwtPayload } from "jsonwebtoken";
 import { jwtDecode } from 'jwt-decode';
 
-type LoginResponse = {
-    user: {
-        id: number,
-        email: string,
-        role: string
-    };
-    token: string;
-}
-
 export default function login() {
-    const router = useRouter();
-    const { register, handleSubmit, reset } = useForm<login>();
+    const { register, handleSubmit, reset, setError  } = useForm<loginType>();
 
-    const onSubmit: SubmitHandler<login> = (data) => {
+    const onSubmit: SubmitHandler<loginType> = (data) => {
         fetch('http://localhost:3000/api/auth', {
             method: 'POST',
             headers: {
@@ -28,13 +17,13 @@ export default function login() {
             },
             body: JSON.stringify(data)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Falha ao enviar os dados para API');
+        .then(response => response.json())
+        .then((data: loginErrorResponse | loginResponse) => {
+            if ('error' in data) {
+                alert(data.error);
+                return;
             }
-            return response.json();
-        })
-        .then((data: LoginResponse) => {
+
             const decodedToken: JwtPayload = jwtDecode(data.token);
             const userRole = decodedToken.role;
 
