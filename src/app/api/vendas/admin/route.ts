@@ -11,10 +11,17 @@ export async function GET() {
     return NextResponse.json(vendas);
 }
 
-export async function POST(request: Request) {
-    // const { itens, frete, desconto, forma_pagamento, endereco, prazo_adicional } = await request.json();
+export async function PUT(request: Request) {
+    const { id, status } = await request.json();
 
-    // });
+    const venda = await prisma.venda.update({
+        where: {
+            id: id,
+          },
+          data: {
+            status: status,
+          },
+    })
 
-    // return NextResponse.json(venda);
+    return NextResponse.json({ venda });
 }

@@ -24,7 +24,6 @@ export function AddVenda() {
                 ...data,
                 forma_pagamento: Number(data.forma_pagamento),
                 prazo_adicional: Number(data.prazo_adicional)
-
             })
         })
         .then(response => {

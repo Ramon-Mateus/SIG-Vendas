@@ -16,11 +16,14 @@ export default function Admin() {
 
   useEffect(() => {
       fetchVenda();
-  }, []);  
+  }, []);
 
   return (
     <div className="flex gap-4 flex-wrap mx-auto max-w-7xl text-slate-300">
       {
+        vendas.length === 0 ? (
+          <p className="text-xl text-slate-300">Nenhuma venda em análise</p>
+        ) :
         vendas.map((venda: venda, index: number) => (
             <VendaAdmin key={index} venda={venda} />
         ))
