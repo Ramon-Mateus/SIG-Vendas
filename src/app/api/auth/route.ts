@@ -24,7 +24,6 @@ export async function POST(request: Request, res: NextApiResponse) {
     if(!isValuePassword) {
         return NextResponse.json({ error: "password invalid!" });
     }
-
     
     const {id, role} = user;
 

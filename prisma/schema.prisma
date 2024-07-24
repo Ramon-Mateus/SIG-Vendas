@@ -27,6 +27,10 @@ model Venda {
   desconto Float
   prazo_adicional Int
   forma_pagamento Int
+  created_at DateTime @default(now())
+  user_id Int
+
+  user User @relation(fields: [user_id], references: [id])
 
   items ItemVenda[]
 
@@ -49,8 +53,11 @@ model ItemVenda {
 model User {
   id Int @id @default(autoincrement())
   email String @unique
+  name String
   password String
   role String
+
+  vendas Venda[]
 
   @@map("Users")
 }

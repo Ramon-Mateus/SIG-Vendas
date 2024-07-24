@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "./components/Navbar";
+import Hydrate from "./components/Hydrate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <NavBar/>
-        <main className="bg-slate-700 h-screen p-20">{children}</main>
+        <Hydrate>
+          <NavBar/>
+          <main className="bg-slate-700 h-screen p-20">{children}</main>
+        </Hydrate>
       </body>
     </html>
   );

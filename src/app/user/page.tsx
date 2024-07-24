@@ -32,6 +32,15 @@ export default function user() {
         <>
             <form onSubmit={handleSubmit(onSubmit)} className="w-1/3 mx-auto p-4 bg-slate-500 shadow-md rounded-md mt-5">
                 <div className="mb-4">
+                    <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="name">Nome</label>
+                    <input
+                        type="text"
+                        {...register('name')}
+                        className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans focus:outline-none"
+                    />
+                </div>
+
+                <div className="mb-4">
                     <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="email">Email</label>
                     <input
                         type="text"

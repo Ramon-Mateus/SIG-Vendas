@@ -6,7 +6,10 @@ export async function GET() {
     const vendas = await prisma.venda.findMany({
         where: {
             status: status_venda.analise
-        }
+        },
+        orderBy: {
+            created_at: 'desc'
+        },
     });
     return NextResponse.json(vendas);
 }

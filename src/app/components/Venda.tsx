@@ -1,8 +1,14 @@
 import { forma_pagamento, prazo_adicional, status_venda, venda } from "../lib/types";
+import { format } from 'date-fns';
 
 type vendaProps = {
     venda: venda
 }
+
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return format(date, 'dd/MM/yyyy HH:mm:ss');
+};
 
 export function Venda({ venda }: vendaProps) {
     if (!venda) {
@@ -19,9 +25,25 @@ export function Venda({ venda }: vendaProps) {
                     : <div className="h-6 w-6 rounded-xl bg-yellow-400 mb-3"></div>
                 }
             </div>
+
             <div className="flex justify-between">
                 <span className="font-medium text-gray-600">Identificador:</span>
                 <span className="text-gray-800">{venda.id}</span>
+            </div>
+
+            <div className="flex justify-between">
+                <span className="font-medium text-gray-600">Data e Hora:</span>
+                <span className="text-gray-800">{formatDate(venda.created_at)}</span>
+            </div>
+
+            <div className="flex justify-between">
+                <span className="font-medium text-gray-600">Usuário:</span>
+                <span className="text-gray-800">{venda.user.name}</span>
+            </div>
+
+            <div className="flex justify-between">
+                <span className="font-medium text-gray-600">Cargo:</span>
+                <span className="text-gray-800">{venda.user.role.toUpperCase()}</span>
             </div>
             
             <div className="flex justify-between">

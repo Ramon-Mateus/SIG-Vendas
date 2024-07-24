@@ -2,6 +2,10 @@ import { useCartStore } from "../lib/store"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { vendaData, forma_pagamento, prazo_adicional } from "../lib/types"
 import { useRouter } from 'next/navigation';
+import { NextRequest } from "next/server";
+import { JwtPayload } from "jsonwebtoken";
+import { jwtDecode } from 'jwt-decode';
+import Cookies from "js-cookie";
 
 export function AddVenda() {
     const router = useRouter();
@@ -13,17 +17,29 @@ export function AddVenda() {
         }
     });
 
+    const getUserId = (): number | null => {
+        const token = Cookies.get('auth_token');
+        if (token) {
+            const decoded: JwtPayload = jwtDecode(token);
+            return decoded.id;
+        }
+        return null;
+    };
+
     const onSubmit: SubmitHandler<vendaData> = (data) => {
+        const userId = getUserId();
+
         fetch('http://localhost:3000/api/vendas', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 itens: useStore.cart,
                 ...data,
                 forma_pagamento: Number(data.forma_pagamento),
-                prazo_adicional: Number(data.prazo_adicional)
+                prazo_adicional: Number(data.prazo_adicional),
+                user_id: userId
             })
         })
         .then(response => {

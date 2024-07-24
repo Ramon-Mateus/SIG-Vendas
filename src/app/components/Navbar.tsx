@@ -12,6 +12,12 @@ export function NavBar() {
         window.location.reload();
     }
 
+    const getUserRole = (): string | null => {
+        const role = Cookies.get('user_role');
+        if(role) return role;
+        return null;
+    };
+
     return (
             <nav className="fixed flex top-0 w-full justify-between items-center z-50 py-4 px-6 bg-slate-800 text-gray-300">
                 <Link 
@@ -21,8 +27,14 @@ export function NavBar() {
                 <div>
                     <Link href='../' className="px-4">Produtos</Link>
                     <Link href='../vendas' className="pr-4">Vendas</Link>
-                    <Link href='../admin' className="pr-4">Admin</Link>
-                    <Link href='../user' className="pr-4">Criar usuário</Link>
+                    {
+                        getUserRole() === "gerente" && (
+                            <>
+                                <Link href='../admin' className="pr-4">Admin</Link>
+                                <Link href='../user' className="pr-4">Criar usuário</Link>
+                            </>
+                        )
+                    }
                 </div>
                 <div className="flex items-center gap-7">
                     <Cart/>

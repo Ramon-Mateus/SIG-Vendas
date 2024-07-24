@@ -6,10 +6,11 @@ import { forma_pagamento } from "../../lib/types"
 export async function GET() {
     const vendas = await prisma.venda.findMany({
         include: {
-            items: true
+            items: true,
+            user: true
         },
         orderBy: {
-            status: 'asc',
+            created_at: 'desc'
         },
     });
     return NextResponse.json(vendas);
@@ -58,7 +59,7 @@ function somaProducts(itens: any, forma_pagamento_item: number) {
 }
 
 export async function POST(request: Request) {
-    const { itens, frete, desconto, forma_pagamento, endereco, prazo_adicional } = await request.json();
+    const { itens, frete, desconto, forma_pagamento, endereco, prazo_adicional, user_id } = await request.json();
 
     if (!Array.isArray(itens) || itens.length === 0) {
         return NextResponse.json({ message: 'Nenhum item fornecido' }, { status: 400 });
@@ -73,6 +74,7 @@ export async function POST(request: Request) {
             desconto: desconto,
             prazo_adicional: prazo_adicional,
             forma_pagamento: forma_pagamento,
+            user_id: user_id,
             items: {
                 create: itens.map(item => ({
                     produto: { connect: { SKU: item.SKU } },
@@ -82,7 +84,7 @@ export async function POST(request: Request) {
             }
         },
         include: {
-            items: true,
+            items: true
         }
     });
 
