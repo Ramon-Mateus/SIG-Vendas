@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(signInURL);
     }
 
-    if (request.nextUrl.pathname === '/admin') {
+    if (request.nextUrl.pathname === '/admin' || request.nextUrl.pathname === '/user') {
         if (role === 'gerente') {
             return NextResponse.next();
         } else {
@@ -24,5 +24,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/', '/vendas', '/admin', '/api/auth/user', '/api/products/:path*', '/api/vendas/:path*'],
+    matcher: ['/', '/vendas', '/admin', '/api/auth/user', '/api/products/:path*', '/api/vendas/:path*', '/user'],
 };

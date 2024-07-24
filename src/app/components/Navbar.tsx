@@ -19,14 +19,17 @@ export function NavBar() {
                     className="font-semibold text-md items-center"
                 >SIG - Vendas</Link>
                 <div>
-                    <Link href='../' className="px-3">Produtos</Link>
-                    <Link href='../vendas' className="pr-3">Vendas</Link>
-                    <Link href='../admin' className="pr-3">Admin</Link>
+                    <Link href='../' className="px-4">Produtos</Link>
+                    <Link href='../vendas' className="pr-4">Vendas</Link>
+                    <Link href='../admin' className="pr-4">Admin</Link>
+                    <Link href='../user' className="pr-4">Criar usuário</Link>
                 </div>
-                <Cart/>
-                <button onClick={hangleLogout} className="px-2 py-1 border border-gray-400 font-sans">
-                    Logout
-                </button>
+                <div className="flex items-center gap-7">
+                    <Cart/>
+                    <button onClick={hangleLogout} className="px-2 py-1 border border-gray-400 font-sans">
+                        Logout
+                    </button>
+                </div>
             </nav>
     )
 }

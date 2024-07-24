@@ -1,18 +1,15 @@
 'use client'
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { loginErrorResponse, loginResponse, loginType } from "../lib/types"
-import Cookies from "js-cookie";
-import { JwtPayload } from "jsonwebtoken";
-import { jwtDecode } from 'jwt-decode';
+import { registerUser } from "../lib/types"
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function login() {
-    const { register, handleSubmit, reset  } = useForm<loginType>();
+export default function user() {
+    const { register, handleSubmit, reset  } = useForm<registerUser>();
 
-    const onSubmit: SubmitHandler<loginType> = (data) => {
-        fetch('http://localhost:3000/api/auth', {
+    const onSubmit: SubmitHandler<registerUser> = (data) => {
+        fetch('http://localhost:3000/api/auth/user', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -20,22 +17,14 @@ export default function login() {
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then((data: loginErrorResponse | loginResponse) => {
+        .then((data) => {
             if ('error' in data) {
                 toast.error(data.error);
                 return;
             }
 
-            const decodedToken: JwtPayload = jwtDecode(data.token);
-            const userRole = decodedToken.role;
-
-            Cookies.set('auth_token', data.token, { sameSite: 'None', secure: true });
-            Cookies.set('user_role', userRole, { sameSite: 'None', secure: true });
-            
-            setTimeout(() => {
-                reset();
-                window.location.href = '/';
-            }, 200);
+            reset();
+            toast.success("Usuário criado com sucesso!");
         })
     };
     
@@ -60,11 +49,19 @@ export default function login() {
                     />
                 </div>
 
+                <div className="mb-4">
+                    <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="role">Autorização do usuário</label>
+                    <select {...register('role')} className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans">
+                        <option value="vendedor">Vendedor</option>
+                        <option value="gerente">Gerente</option>
+                    </select>
+                </div>
+
                 <button 
                     type="submit"
                     className="bg-teal-600 text-gray-300 w-full text-center py-3 rounded-md mt-5"
                 >
-                    Login
+                    Cadastrar
                 </button>
             </form>
             <ToastContainer />

@@ -43,6 +43,12 @@ export type loginErrorResponse = {
     error: string;
 }
 
+export type registerUser = {
+    email: string;
+    password: string;
+    role: string
+}
+
 export enum prazo_adicional {
     padrao = 0,
     turbo = 10,
