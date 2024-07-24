@@ -22,7 +22,7 @@ export default function Admin() {
     <div className="flex gap-4 flex-wrap mx-auto max-w-7xl text-slate-300 mb-5">
       {
         vendas.length === 0 ? (
-          <p className="text-xl text-slate-300">Nenhuma venda em análise</p>
+          <p className="text-xl text-slate-300">Nenhum pedido pendente...</p>
         ) :
         vendas.map((venda: venda, index: number) => (
             <VendaAdmin key={index} venda={venda} />

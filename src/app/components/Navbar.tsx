@@ -30,7 +30,7 @@ export function NavBar() {
                     {
                         getUserRole() === "gerente" && (
                             <>
-                                <Link href='../admin' className="pr-4">Admin</Link>
+                                <Link href='../admin' className="pr-4">Pedidos</Link>
                                 <Link href='../user' className="pr-4">Criar usuário</Link>
                             </>
                         )

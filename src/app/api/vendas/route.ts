@@ -3,15 +3,30 @@ import { prisma } from "@/app/lib/prisma";
 import { prazo_adicional, product, status_venda } from "@/app/lib/types";
 import { forma_pagamento } from "../../lib/types"
 
-export async function GET() {
+export async function GET(request: Request) {
+    const { searchParams } = new URL(request.url);
+    const descontoOrder = searchParams.get('desconto');
+    const dataOrder = searchParams.get('data');
+    const totalOrder = searchParams.get('total');
+
+    const descontoMin = parseFloat(searchParams.get('minDesconto') || '0');
+    const descontoMax = parseFloat(searchParams.get('maxDesconto') || 'NaN');
+
+    let orderBy: any[] = [];
+    
+    if (totalOrder) orderBy.push({ total: totalOrder });
+    if (descontoOrder) orderBy.push({ desconto: descontoOrder });
+    if (dataOrder) orderBy.push({ created_at: dataOrder });
+
     const vendas = await prisma.venda.findMany({
         include: {
             items: true,
             user: true
         },
-        orderBy: {
-            created_at: 'desc'
+        where: {
+            desconto: !isNaN(descontoMax) ? { gte: descontoMin, lte: descontoMax} : { gte: descontoMin }
         },
+        orderBy,
     });
     return NextResponse.json(vendas);
 }
