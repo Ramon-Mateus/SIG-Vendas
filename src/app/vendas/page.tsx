@@ -130,56 +130,75 @@ export default function Vendas() {
         <div className="flex flex-col justify-center items-center">
             <div className="mb-7 text-slate-800 text-sm font-bold p-3 flex gap-3">
 
-                <select
-                    value={total}
-                    onChange={onTotalChange}
-                    className='flex-1 outline-none border-0 text-sm focus:ring-0 bg-slate-300 p-3'
-                >
-                    <option value="">Ordenação total...</option>
-                    <option value="asc">Menor</option>
-                    <option value="desc">Maior</option>
-                </select>
+                <div className="border border-slate-300 rounded-md p-5 flex gap-5 relative pt-10">
+                    <h1 className="absolute left-5 top-3 text-slate-300">Ordenação:</h1>
+                    <div className="mb-4">
+                        <label className="block text-slate-400 text-sm font-bold mb-1">Total:</label>
+                        <select
+                            value={total}
+                            onChange={onTotalChange}
+                            className='flex-1 outline-none border-0 text-sm focus:ring-0 bg-slate-300 p-3'
+                        >
+                            <option value="">Ordenação total...</option>
+                            <option value="asc">Menor</option>
+                            <option value="desc">Maior</option>
+                        </select>
+                    </div>
 
-                <select
-                    value={desconto}
-                    onChange={onDescontoChange}
-                    className='flex-1 outline-none border-0 text-sm focus:ring-0 bg-slate-300 p-3'
-                >
-                    <option value="">Ordenação desconto...</option>
-                    <option value="asc">Desconto crescente</option>
-                    <option value="desc">Desconto decrescente</option>
-                </select>
+                    <div className="mb-4">
+                        <label className="block text-slate-400 text-sm font-bold mb-1">Desconto:</label>
+                    <select
+                        value={desconto}
+                        onChange={onDescontoChange}
+                        className='flex-1 outline-none border-0 text-sm focus:ring-0 bg-slate-300 p-3'
+                    >
+                        <option value="">Ordenação desconto...</option>
+                        <option value="asc">Desconto crescente</option>
+                        <option value="desc">Desconto decrescente</option>
+                    </select>
+                    </div>
 
-                <select
-                    value={data}
-                    onChange={onDataChange}
-                    className='flex-1 outline-none border-0 text-sm focus:ring-0 bg-slate-300 p-3'
-                >
-                    <option value="">Ordenação data...</option>
-                    <option value="asc">Mais antigo</option>
-                    <option value="desc">Mais recente</option>
-                </select>
-
-                <div className="bg-slate-300 p-3">
-                    <input
-                        type="number"
-                        value={minDesconto}
-                        onChange={onDescontoMinChange}
-                        placeholder="Desconto mínimo"
-                        className='bg-transparent outline-none border-0 p-0 text-sm focus:ring-0'
-                        min="0"
-                    />
+                    <div className="mb-4">
+                        <label className="block text-slate-400 text-sm font-bold mb-1">Data:</label>
+                        <select
+                            value={data}
+                            onChange={onDataChange}
+                            className='flex-1 outline-none border-0 text-sm focus:ring-0 bg-slate-300 p-3'
+                        >
+                            <option value="">Ordenação data...</option>
+                            <option value="asc">Mais antigo</option>
+                            <option value="desc">Mais recente</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div className="bg-slate-300 p-3">
-                    <input
-                        type="number"
-                        value={maxDesconto}
-                        onChange={onDescontoMaxChange}
-                        placeholder="Desconto máximo"
-                        className='bg-transparent outline-none border-0 p-0 text-sm focus:ring-0'
-                        min="0"
-                    />
+                <div className="border border-slate-300 rounded-md p-5 flex gap-5 relative pt-10">
+                    <h1 className="absolute left-5 top-3 text-slate-300">Filtro de desconto:</h1>
+                    <div className="mb-4">
+                        <label className="block text-slate-400 text-sm font-bold mb-1">Desconto mínimo:</label>
+                        <div className="bg-slate-300 p-3">
+                            <input
+                                type="number"
+                                value={minDesconto}
+                                onChange={onDescontoMinChange}
+                                className='bg-transparent outline-none border-0 p-0 text-sm focus:ring-0'
+                                min="0"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="mb-4">
+                        <label className="block text-slate-400 text-sm font-bold mb-1">Desconto máximo:</label>
+                        <div className="bg-slate-300 p-3">
+                            <input
+                                type="number"
+                                value={maxDesconto}
+                                onChange={onDescontoMaxChange}
+                                className='bg-transparent outline-none border-0 p-0 text-sm focus:ring-0'
+                                min="0"
+                            />
+                        </div>
+                    </div>
                 </div>
 
             </div>
