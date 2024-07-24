@@ -41,7 +41,7 @@ export default function user() {
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="password">Password</label>
+                    <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="password">Senha</label>
                     <input
                         type="password"
                         {...register('password')}

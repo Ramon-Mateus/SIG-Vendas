@@ -32,11 +32,12 @@ export function AddVenda() {
             }
             return response.json();
         })
-        .then(() => {
+        .then((data) => {
             useStore.cleanCart();
             reset();
             router.replace('/vendas');
             useStore.toggleCart();
+            alert(data.message);
         })
     };
     

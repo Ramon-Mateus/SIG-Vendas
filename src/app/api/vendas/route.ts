@@ -86,5 +86,10 @@ export async function POST(request: Request) {
         }
     });
 
-    return NextResponse.json(venda);
+    if(venda.status === status_venda.aceita) {
+        return NextResponse.json({venda, message: "Venda aceita!", status: status_venda.aceita});
+    }
+
+    return NextResponse.json({venda, message: "Venda gerada, porém em análise pelo gerente por ter excedido desconto máximo", status: status_venda.analise});
+
 }
