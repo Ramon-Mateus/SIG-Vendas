@@ -30,6 +30,15 @@ export type venda = {
         name: string
         role: string
     }
+    items: item[]
+}
+
+export type item = {
+    id: number
+    venda_id: number
+    produto_id: String
+    quantidade: number
+    produto: product;
 }
 
 export type loginType = {

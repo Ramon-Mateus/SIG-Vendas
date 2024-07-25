@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import type { venda } from "../lib/types"
 import { Venda } from "../components/Venda";
+import Link from "next/link";
 
 export default function Vendas() {
     const [vendas, setVendas] = useState<venda[]>([]);
@@ -201,7 +202,9 @@ export default function Vendas() {
             <div className="flex gap-4 flex-wrap mx-auto mb-5 max-w-7xl justify-center">
                 {
                     vendas.map((venda: venda, index: number) => (
-                        <Venda key={index} venda={venda} />
+                        <Link key={index} href={`/vendas/${venda.id}`}>
+                            <Venda key={index} venda={venda} />
+                        </Link>
                     ))
                 }
             </div>

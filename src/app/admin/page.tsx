@@ -5,6 +5,7 @@ import { status_venda, venda } from "../lib/types";
 import { Venda } from "../components/Venda";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Link from "next/link";
 
 export default function Admin() {
   const [vendas, setVendas] = useState<venda[]>([]);
@@ -232,7 +233,9 @@ function onDescontoMaxChange(event: React.ChangeEvent<HTMLInputElement>) {
           ) :
           vendas.map((venda: venda, index: number) => (
               <div className="bg-slate-300 pb-2">
-                <Venda key={index} venda={venda} />
+                <Link key={index} href={`/vendas/${venda.id}`}>
+                    <Venda key={index} venda={venda} />
+                </Link>
                 <div className="flex justify-between mt-3 mx-4">
                   <button onClick={() => handleUpdateStatus(status_venda.aceita, venda)} className="border border-green-600 p-2 rounded-md bg-green-600 hover:bg-green-700 mr-4">
                       Aceitar
