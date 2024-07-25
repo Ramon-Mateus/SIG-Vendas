@@ -1,21 +1,24 @@
+'use client'
+
 import { useCartStore } from "../lib/store"
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { vendaData, forma_pagamento, prazo_adicional } from "../lib/types"
 import { useRouter } from 'next/navigation';
-import { NextRequest } from "next/server";
 import { JwtPayload } from "jsonwebtoken";
 import { jwtDecode } from 'jwt-decode';
 import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
 export function AddVenda() {
     const router = useRouter();
     const useStore = useCartStore();
-    const { register, handleSubmit, reset } = useForm<vendaData>({
+    const { register, control, handleSubmit, reset } = useForm<vendaData>({
         defaultValues: {
             frete: 0,
             desconto: 0,
         }
     });
+    const [total, setTotal] = useState(0);
 
     const getUserId = (): number | null => {
         const token = Cookies.get('auth_token');
@@ -56,6 +59,16 @@ export function AddVenda() {
             alert(data.message);
         })
     };
+
+    const formaPagamento = useWatch({
+        control,
+        name: "forma_pagamento",
+        defaultValue: "1",
+    });
+
+    useEffect(() => {
+        setTotal(useStore.totalCart(Number(formaPagamento)));
+    }, [total, useStore.cart, formaPagamento])
     
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto p-4 bg-slate-500 shadow-md rounded-md mt-5">
@@ -107,6 +120,8 @@ export function AddVenda() {
                     <option value={prazo_adicional.super_turbo}>Super Turbo</option>
                 </select>
             </div>
+
+            <h2 className="text-lg">Total: R$ {total.toFixed(2)}</h2>
 
             {
                 useStore.cart.length > 0 ? (
