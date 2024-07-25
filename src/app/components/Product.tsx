@@ -8,7 +8,7 @@ type ProductProps = {
 
 export function Product({ product, quantity }: ProductProps) {
     return (
-        <div className="flex flex-col w-52 h-30 bg-slate-300 p-2 rounded-md text-gray-900">
+        <div className="flex flex-col w-72 h-30 bg-slate-300 p-2 rounded-md text-gray-900">
             <div className="flex justify-between">
                 <div>
                     <p>{product.SKU}</p>

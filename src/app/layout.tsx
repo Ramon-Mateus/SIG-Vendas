@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "./components/Navbar";
 import Hydrate from "./components/Hydrate";
+import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Hydrate>
           <NavBar/>
-          <main className="bg-slate-700 h-screen p-20">{children}</main>
+            <PrimeReactProvider>
+              <main className="bg-slate-700 h-screen p-20">{children}</main>
+            </PrimeReactProvider>
         </Hydrate>
       </body>
     </html>
