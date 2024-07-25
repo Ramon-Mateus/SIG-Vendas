@@ -18,6 +18,10 @@ export async function GET(request: Request) {
     if (descontoOrder) orderBy.push({ desconto: descontoOrder });
     if (dataOrder) orderBy.push({ created_at: dataOrder });
 
+    if (orderBy.length === 0 && descontoMin === 0) {
+        orderBy.push({ status: 'asc' }, { created_at: 'desc' });
+    }
+
     const vendas = await prisma.venda.findMany({
         include: {
             items: true,
@@ -26,7 +30,7 @@ export async function GET(request: Request) {
         where: {
             desconto: !isNaN(descontoMax) ? { gte: descontoMin, lte: descontoMax} : { gte: descontoMin }
         },
-        orderBy,
+        orderBy
     });
     return NextResponse.json(vendas);
 }
@@ -108,5 +112,4 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({venda, message: "Venda gerada, porém em análise pelo gerente por ter excedido desconto máximo", status: status_venda.analise});
-
 }
