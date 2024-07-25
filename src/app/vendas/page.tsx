@@ -68,10 +68,8 @@ export default function Vendas() {
         if (desconto.length > 0) url.searchParams.set('desconto', desconto)
         if (data.length > 0) url.searchParams.set('data', data)
         if (total.length > 0) url.searchParams.set('total', total)
-        // if (minDesconto.length > 0) url.searchParams.set('minDesconto', minDesconto)
-        // if (maxDesconto.length > 0) url.searchParams.set('maxDesconto', maxDesconto)
-        url.searchParams.set('minDesconto', minDesconto)
-        url.searchParams.set('maxDesconto', maxDesconto)
+        if (minDesconto.length > 0) url.searchParams.set('minDesconto', minDesconto)
+        if (maxDesconto.length > 0) url.searchParams.set('maxDesconto', maxDesconto)
 
         fetchVenda(url);
     }, [desconto, data, total, minDesconto, maxDesconto]);
@@ -129,7 +127,6 @@ export default function Vendas() {
     return (
         <div className="flex flex-col justify-center items-center">
             <div className="mb-7 text-slate-800 text-sm font-bold p-3 flex gap-3">
-
                 <div className="border border-slate-300 rounded-md p-5 flex gap-5 relative pt-10">
                     <h1 className="absolute left-5 top-3 text-slate-300">Ordenação:</h1>
                     <div className="mb-4">
@@ -200,15 +197,13 @@ export default function Vendas() {
                         </div>
                     </div>
                 </div>
-
             </div>
-
-            <div className="flex gap-4 flex-wrap mx-auto max-w-7xl mb-5">
-                {
-                    vendas.map((venda: venda, index: number) => (
-                        <Venda key={index} venda={venda} />
-                    ))
-                }
+                <div className="flex gap-4 flex-wrap mx-auto mb-5 max-w-7xl justify-center">
+                    {
+                        vendas.map((venda: venda, index: number) => (
+                            <Venda key={index} venda={venda} />
+                        ))
+                    }
             </div>
         </div>
     )
