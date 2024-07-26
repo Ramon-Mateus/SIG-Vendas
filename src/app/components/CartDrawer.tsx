@@ -21,8 +21,8 @@ export function CartDrawer() {
                                     <h2 className="text-gray-400">Quantidade: {item.quantity}</h2>
                                 </div>
                                 <div>
-                                    <p className="text-md">R$ {item.preco_cheio}</p>
-                                    <p className="text-sm">Pix: R$ {item.preco_descontado}</p>
+                                    <p className="text-md">R$ {item.preco_cheio.toFixed(2)}</p>
+                                    <p className="text-sm">Pix: R$ {item.preco_descontado.toFixed(2)}</p>
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <button onClick={() => useStore.addProduct(item)} className="border border-slate-400 rounded-md p-1">

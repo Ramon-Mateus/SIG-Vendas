@@ -9,7 +9,7 @@ type CartState = {
     cleanCart: () => void;
     isOpen: boolean;
     toggleCart: () => void;
-    totalCart: (forma_pagamento: number) => number;
+    totalCart: (forma_pagamento: number, frete: number, desconto: number) => number;
 }
 
 export const useCartStore = create<CartState>()(
@@ -53,14 +53,14 @@ export const useCartStore = create<CartState>()(
             }),
         isOpen: false,
         toggleCart: () => set((state) => ({isOpen: !state.isOpen })),
-        totalCart: (forma_pagamento_item: number) => {
+        totalCart: (forma_pagamento_item: number, frete: number, desconto: number) => {
             const { cart } = get();
 
             if(forma_pagamento.cartao_credito === forma_pagamento_item) {
-                return cart.reduce((total: number, item: product) => total + item.preco_cheio * (item.quantity || 1), 0)
+                return cart.reduce((total: number, item: product) => total + item.preco_cheio * (item.quantity || 1), 0) + frete - desconto
             }
 
-            return cart.reduce((total: number, item: product) => total + item.preco_descontado * (item.quantity || 1), 0)
+            return cart.reduce((total: number, item: product) => total + item.preco_descontado * (item.quantity || 1), 0) + frete - desconto
         }
     }), { name: 'cart-storage'})
 )

@@ -66,9 +66,31 @@ export function AddVenda() {
         defaultValue: "1",
     });
 
+    const freteVenda = useWatch({
+        control,
+        name: "frete",
+        defaultValue: 0,
+    });
+
+    const descontoVenda = useWatch({
+        control,
+        name: "desconto",
+        defaultValue: 0,
+    });
+
     useEffect(() => {
-        setTotal(useStore.totalCart(Number(formaPagamento)));
-    }, [total, useStore.cart, formaPagamento])
+        if(!Number(freteVenda)) {
+            if(!Number(descontoVenda)) {
+                setTotal(useStore.totalCart(Number(formaPagamento), 0, 0));
+            } else {
+                setTotal(useStore.totalCart(Number(formaPagamento), 0, Number(descontoVenda)));
+            }
+        } else if(!Number(descontoVenda)) {
+            setTotal(useStore.totalCart(Number(formaPagamento), Number(freteVenda), 0));
+        } else {
+            setTotal(useStore.totalCart(Number(formaPagamento), Number(freteVenda), Number(descontoVenda)));
+        }
+    }, [total, useStore.cart, formaPagamento, freteVenda, descontoVenda])
     
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto p-4 bg-slate-500 shadow-md rounded-md mt-5">
