@@ -7,16 +7,11 @@ export async function GET(request: Request) {
     
     let [products, total] = await Promise.all([
         prisma.produto.findMany({
-          take: 20,
-          skip: Number(page)
+            take: 20,
+            skip: Number(page)
           }),
           prisma.produto.count(),
     ])
-
-    // const products = await prisma.produto.findMany({
-    //     take: 20,
-    //     skip: Number(page) * 20
-    // });
 
     return NextResponse.json({ products, total });
 }

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import type { venda } from "../lib/types"
 import { Venda } from "../components/Venda";
 import Link from "next/link";
+import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 export default function Vendas() {
     const [vendas, setVendas] = useState<venda[]>([]);
@@ -16,6 +18,13 @@ export default function Vendas() {
 
         return ''
     })
+
+    const [page, setPage] = useState(0)
+    const [totalVendas, setTotalVendas] = useState<number>(0);
+
+    const onPageChange = (event: PaginatorPageChangeEvent) => {
+        setPage(event.first);
+    };
 
     const [data, setData] = useState(() => {
         const url = new URL(window.location.toString())
@@ -60,11 +69,14 @@ export default function Vendas() {
     const fetchVenda = async (url: URL) => {
         const response = await fetch(url);
         const data = await response.json();
-        setVendas(data);
+        setVendas(data.vendas);
+        setTotalVendas(data.total);
     }
 
     useEffect(() => {
         const url = new URL('http://localhost:3000/api/vendas')
+
+        url.searchParams.set('page', String(page))
 
         if (desconto.length > 0) url.searchParams.set('desconto', desconto)
         if (data.length > 0) url.searchParams.set('data', data)
@@ -73,7 +85,7 @@ export default function Vendas() {
         if (maxDesconto.length > 0) url.searchParams.set('maxDesconto', maxDesconto)
 
         fetchVenda(url);
-    }, [desconto, data, total, minDesconto, maxDesconto]);
+    }, [desconto, data, total, minDesconto, maxDesconto, page]);
 
     function onDescontoChange(event: React.ChangeEvent<HTMLSelectElement>) {
         const desconto = event.target.value;
@@ -207,6 +219,9 @@ export default function Vendas() {
                         </Link>
                     ))
                 }
+            </div>
+            <div className="mb-8">
+                <Paginator first={page} rows={9} totalRecords={totalVendas} onPageChange={onPageChange} template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" />
             </div>
         </div>
     )

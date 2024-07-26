@@ -8,6 +8,7 @@ export async function GET(request: Request) {
     const descontoOrder = searchParams.get('desconto');
     const dataOrder = searchParams.get('data');
     const totalOrder = searchParams.get('total');
+    const page = searchParams.get('page');
 
     const descontoMin = parseFloat(searchParams.get('minDesconto') || '0');
     const descontoMax = parseFloat(searchParams.get('maxDesconto') || 'NaN');
@@ -22,17 +23,23 @@ export async function GET(request: Request) {
         orderBy.push({ status: 'asc' }, { created_at: 'desc' });
     }
 
-    const vendas = await prisma.venda.findMany({
-        include: {
-            items: true,
-            user: true
-        },
-        where: {
-            desconto: !isNaN(descontoMax) ? { gte: descontoMin, lte: descontoMax} : { gte: descontoMin }
-        },
-        orderBy
-    });
-    return NextResponse.json(vendas);
+    let [vendas, total] = await Promise.all([
+        prisma.venda.findMany({
+            take: 9,
+            skip: Number(page),
+            include: {
+                items: true,
+                user: true
+            },
+            where: {
+                desconto: !isNaN(descontoMax) ? { gte: descontoMin, lte: descontoMax} : { gte: descontoMin }
+            },
+            orderBy
+        }),
+        prisma.venda.count()
+    ])
+
+    return NextResponse.json({ vendas, total });
 }
 
 function totalVenda(itens: any, frete: number, desconto: number, forma_pagamento_item: number, prazo_adicional: number) {
