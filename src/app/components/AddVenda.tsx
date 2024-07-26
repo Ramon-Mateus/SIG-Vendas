@@ -19,6 +19,7 @@ export function AddVenda() {
         }
     });
     const [total, setTotal] = useState(0);
+    const [desconto_max, setDesconto_max] = useState('');
 
     const getUserId = (): number | null => {
         const token = Cookies.get('auth_token');
@@ -78,6 +79,12 @@ export function AddVenda() {
         defaultValue: 0,
     });
 
+    const prazoAdicional = useWatch({
+        control,
+        name: "prazo_adicional",
+        defaultValue: 0,
+    });
+
     useEffect(() => {
         if(!Number(freteVenda)) {
             if(!Number(descontoVenda)) {
@@ -90,7 +97,8 @@ export function AddVenda() {
         } else {
             setTotal(useStore.totalCart(Number(formaPagamento), Number(freteVenda), Number(descontoVenda)));
         }
-    }, [total, useStore.cart, formaPagamento, freteVenda, descontoVenda])
+        setDesconto_max(useStore.descontoMax(Number(formaPagamento), Number(prazoAdicional), Number(freteVenda)))
+    }, [total, useStore.cart, formaPagamento, freteVenda, descontoVenda, prazoAdicional])
     
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto p-4 bg-slate-500 shadow-md rounded-md mt-5">
@@ -108,6 +116,7 @@ export function AddVenda() {
                 <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="desconto">Desconto (R$)</label>
                 <input
                     type="number"
+                    step="0.01"
                     {...register('desconto', { valueAsNumber: true, min: 0, setValueAs: (value) => value === "" ? 0 : value })}
                     className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans focus:outline-none"
                     min={0}
@@ -128,6 +137,7 @@ export function AddVenda() {
                 <label className="block text-gray-800 text-sm font-bold mb-1" htmlFor="frete">Valor do Frete (R$)</label>
                 <input
                     type="number"
+                    step="0.01"
                     {...register('frete', {valueAsNumber: true, min: 0, setValueAs: (value) => value === "" ? 0 : value})}
                     className="w-full px-3 py-2 border rounded-md text-gray-700 font-sans focus:outline-none"
                     min={0}
@@ -143,7 +153,10 @@ export function AddVenda() {
                 </select>
             </div>
 
-            <h2 className="text-lg">Total: R$ {total.toFixed(2)}</h2>
+            <div>
+                <h2 className="text-lg">Total: R$ {total.toFixed(2)}</h2>
+                <h2 className="text-lg">Desconto Max: {desconto_max}</h2>
+            </div>
 
             {
                 useStore.cart.length > 0 ? (

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { forma_pagamento, product } from "./types";
+import { forma_pagamento, prazo_adicional, product } from "./types";
 
 type CartState = {
     cart: product[];
@@ -10,6 +10,7 @@ type CartState = {
     isOpen: boolean;
     toggleCart: () => void;
     totalCart: (forma_pagamento: number, frete: number, desconto: number) => number;
+    descontoMax: (forma_pagamento_item: number, prazo_adicional_item: number, frete: number) => string;
 }
 
 export const useCartStore = create<CartState>()(
@@ -61,6 +62,36 @@ export const useCartStore = create<CartState>()(
             }
 
             return cart.reduce((total: number, item: product) => total + item.preco_descontado * (item.quantity || 1), 0) + frete - desconto
+        },
+        descontoMax: (forma_pagamento_item: number, prazo_adicional_item: number, frete: number) => {
+            const { cart } = get();
+            let totalItens: number = 0;
+
+            if(forma_pagamento.cartao_credito === forma_pagamento_item) {
+                totalItens = cart.reduce((total: number, item: product) => total + item.preco_cheio * (item.quantity || 1), 0)
+            } else {
+                totalItens = cart.reduce((total: number, item: product) => total + item.preco_descontado * (item.quantity || 1), 0)
+            }
+
+            if(prazo_adicional_item === prazo_adicional.padrao) {
+                totalItens = totalItens * 0.05
+                if(frete > totalItens) {
+                    return `Frete: R$ ${frete.toFixed(2)}`
+                }
+                return `5%: R$ ${totalItens.toFixed(2)}`
+            } else if(prazo_adicional_item === prazo_adicional.turbo) {
+                totalItens = totalItens * 0.1
+                if(frete > totalItens) {
+                    return `Frete: R$ ${frete.toFixed(2)}`
+                }
+                return `10%: R$ ${totalItens.toFixed(2)}`
+            }
+
+            totalItens = totalItens * 0.2
+            if(frete > totalItens) {
+                return `Frete: R$ ${frete.toFixed(2)}`
+            }
+            return `20%: R$ ${totalItens.toFixed(2)}`
         }
     }), { name: 'cart-storage'})
 )
