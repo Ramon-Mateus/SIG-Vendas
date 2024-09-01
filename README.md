@@ -1,15 +1,13 @@
-# Case Processo Seletivo: Sistema de gerenciamento de vendas
+# Sistema de gerenciamento de vendas
 
-Já fabricamos mais de 4 milhões de bonés personalizados com a marca de mais de 40 mil empresas de todo o Brasil durante esses 8 anos. Com o crescimento da empresa, foi necessário ter uma atenção maior à quantidade de vendas realizadas e aos valores de cada uma delas. A fim de facilitar o processo de auditoria dos pedidos, você foi contratado para criar um sistema de gerenciamento de vendas.
 Esse sistema tem o intuito cadastrar e listar vendas, mas caso a venda possua um desconto maior do que o permitido, ela deve gerar uma solicitação para que o gerente aprove-a (ou não). O valor total de um pedido é dado por: `SOMA DOS PRODUTOS` + `VALOR DO FRETE` + `ADICIONAL DE PRAZO` - `DESCONTO`. Caso o valor total do pedido exceda o `DESCONTO MÁXIMO PERMITIDO`, é necessário criar uma solicitação e, após a aprovação desta, o vendedor pode cadastrar sua venda, caso contrário, ele precisa receber algum feedback visual informando que a venda não foi permitida pelo gerente.
 
 - SOMA DOS PRODUTOS: Para cada produto, é necessário multiplicar a sua **QUANTIDADE** pelo **PREÇO**;
-- VALOR FRETE: Sinta-se livre para definir sua lógica de cálculo de frete. Lembre-se que entregamos para todo o Brasil;
-- ADICIONAL DE PRAZO: **PADRÃO**, **TURBO** e **SUPER TURBO** são nossos 3 tipos de prazo. Caso o prazo seja padrão, não há adicional. Caso o prazo seja **TURBO**, o adicional será igual a 10% da `SOMA DOS PRODUTOS`. Caso o prazo seja **SUPER TURBO**, o adicional será igual a 20% da `SOMA DOS PRODUTOS`;
+- ADICIONAL DE PRAZO: **PADRÃO**, **TURBO** e **SUPER TURBO**. Caso o prazo seja padrão, não há adicional. Caso o prazo seja **TURBO**, o adicional será igual a 10% da `SOMA DOS PRODUTOS`. Caso o prazo seja **SUPER TURBO**, o adicional será igual a 20% da `SOMA DOS PRODUTOS`;
 - DESCONTO: O desconto pode ser um campo numérico livre.
 - DESCONTO MÁXIMO PERMITIDO: Esse valor é condicionado ao tipo de prazo. Caso seja **PADRÃO**, o desconto máximo é o maior valor entre `VALOR DO FRETE` e `5% DA SOMA DOS PRODUTOS`. Caso seja **TURBO**, o desconto máximo é o maior valor entre `VALOR DO FRETE` e `10% DA SOMA DOS PRODUTOS`. Por fim, caso seja **SUPER TURBO**, o desconto máximo é o maior valor entre `VALOR DO FRETE` e `20% DA SOMA DOS PRODUTOS`.
 
-Para cadastrar uma venda, é necessário informar quais produtos foram negociados. Para tanto, o repositório possui um arquivo (___produtosCaseSB.js___) que disponibiliza um array de objetos que representam nossos produtos! Você notará que, para cada produto, existe o `PRECO_CHEIO` e `PRECO_DESCONTADO`. O preço cheio é cobrado quando a forma de pagamento é via cartão de crédito, enquanto o preço descontado é cobrado para os pagamentos em pix e boleto.
+Para cadastrar uma venda, é necessário informar quais produtos foram negociados. Para cada produto existe o `PRECO_CHEIO` e `PRECO_DESCONTADO`. O preço cheio é cobrado quando a forma de pagamento é via cartão de crédito, enquanto o preço descontado é cobrado para os pagamentos em pix e boleto.
 
 ## Requisitos:
 
