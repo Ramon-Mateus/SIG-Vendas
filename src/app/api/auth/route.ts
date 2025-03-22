@@ -24,10 +24,14 @@ export async function POST(request: Request, res: NextApiResponse) {
     if(!isValuePassword) {
         return NextResponse.json({ error: "password invalid!" });
     }
-    
-    const {id, role} = user;
 
-    const token = sign({ id, role }, SECRET_KEY, { expiresIn: '1d' });
+    const {id, role, name } = user;
 
-    return NextResponse.json({ user: { id, email, role }, token });
+    const token = sign({ id, role, name }, SECRET_KEY, { expiresIn: '1d' });
+
+    const response = NextResponse.json({ user: { id, email, name, role }, token });
+
+    response.cookies.set('user_name', name, { path: '/' });
+
+    return response;
 }
