@@ -6,7 +6,7 @@ import { venda } from "@/app/lib/types";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react"
 
-export function VendaDetail(resquest: Request, context: any) {
+export default function VendaDetail() {
     const { id } = useParams();
 
     const [venda, setVenda] = useState<venda | undefined>();
