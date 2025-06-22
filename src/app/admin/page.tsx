@@ -231,10 +231,10 @@ function onDescontoMaxChange(event: React.ChangeEvent<HTMLInputElement>) {
           vendas.length === 0 ? (
             <p className="text-xl text-slate-300">Nenhum pedido pendente...</p>
           ) :
-          vendas.map((venda: venda, index: number) => (
-              <div className="bg-slate-300 pb-2">
-                <Link key={index} href={`/vendas/${venda.id}`}>
-                    <Venda key={index} venda={venda} />
+          vendas.map((venda: venda) => (
+              <div key={venda.id} className="bg-slate-300 pb-2">
+                <Link href={`/vendas/${venda.id}`}>
+                    <Venda venda={venda} />
                 </Link>
                 <div className="flex justify-between mt-3 mx-4">
                   <button onClick={() => handleUpdateStatus(status_venda.aceita, venda)} className="border border-green-600 p-2 rounded-md bg-green-600 hover:bg-green-700 mr-4">
