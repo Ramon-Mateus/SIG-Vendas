@@ -98,7 +98,7 @@ export function AddVenda() {
             setTotal(useStore.totalCart(Number(formaPagamento), Number(freteVenda), Number(descontoVenda)));
         }
         setDesconto_max(useStore.descontoMax(Number(formaPagamento), Number(prazoAdicional), Number(freteVenda)))
-    }, [total, useStore.cart, formaPagamento, freteVenda, descontoVenda, prazoAdicional])
+    }, [total, useStore.cart, formaPagamento, freteVenda, descontoVenda, prazoAdicional, useStore])
     
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto p-4 bg-slate-500 shadow-md rounded-md mt-5">

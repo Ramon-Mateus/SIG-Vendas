@@ -5,7 +5,7 @@ import { registerUser } from "../lib/types"
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function user() {
+export default function User() {
     const { register, handleSubmit, reset  } = useForm<registerUser>();
 
     const onSubmit: SubmitHandler<registerUser> = (data) => {

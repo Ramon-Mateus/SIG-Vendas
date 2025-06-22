@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function login() {
+export default function Login() {
     const { register, handleSubmit, reset  } = useForm<loginType>();
 
     const onSubmit: SubmitHandler<loginType> = (data) => {
